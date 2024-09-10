@@ -23,7 +23,7 @@ The task will be achieved following Google's Data Analytics Professional Certifi
 - It is a CC0 Public Domain licensed post, so no permissions are needed to work with it.
 - Data is mostly in long format, and was originally posted in Zenodo's [webpage](https://zenodo.org/) by Furberg, Robert; Brinton, Julia; Keating, Michael; Ortiz, Alexa. The link to the original dataset is [this](https://zenodo.org/record/53894#.YMoUpnVKiP9).
 - The data's been checked using the ROCCC protocol:
-  - Reliable: even though our sample size meets the CLT ≥ 30 criteria, a greater sample size is strongly recommended.
+  - Reliable: even though our sample size meets the CLT ≥ 30 criteria (or does it?), a greater sample size is strongly recommended.
   - Original: the original datasource is located and the information comes from active users that agreed to share it.
   - Comprehensive: data is in raw format so no human error is found, although some points are missing because of each candidate's particular use of the device. 
   - Current: data is not current, since it was collected on 2016, so it shouldn't be used as a reference in the present period.
@@ -59,4 +59,41 @@ SELECT
 FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity
 `````
 The query returned 33 participants:
+
+![image](https://github.com/user-attachments/assets/79934d32-c77c-485e-a5a0-47697f03e0c8)
+
+Also, it is important to know the average use that the participants gave to the device, acknowledging the fact that it may run out of battery, they might not be wearing it or just not recording:
 ```
+WITH Id_counts AS (
+  SELECT
+    Id,
+    COUNT(*) AS appearance_count
+  FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity`
+  GROUP BY
+	Id
+)
+SELECT
+  MIN(appearance_count) AS min_appearances,
+  MAX(appearance_count) AS max_appearances,
+	ROUND(AVG(appearance_count), 0) AS avg_appearances
+FROM Id_counts;
+```
+![image](https://github.com/user-attachments/assets/48f73b1e-4f55-4cce-b396-39cc01571ae5)
+
+That is a very wide range, and overall the average of days is less than the one expected of at least 30. This allows us to assume that there is a segmentation on how active users are with their devices. In any case, I found that in 24 cases (73%) there are logs from more than 30 days:
+```
+WITH Id_counts AS (
+  SELECT
+    Id,
+    COUNT(*) AS appearance_count
+  FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity`
+  GROUP BY
+	Id
+)
+SELECT
+  COUNT(Id) AS most_active_users
+FROM Id_counts
+WHERE
+	Id_counts.appearance_count >= 30
+```
+![image](https://github.com/user-attachments/assets/10e54ffc-f734-47b4-9969-f58eea426fda)
