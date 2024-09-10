@@ -39,7 +39,7 @@ For this study, I'll be using 3 different tools for the complete analysis and sh
 
 #### Process
 
-As commented above, I'm going to use spreadsheets for the cleaning and sorting phase. At first sight, like expected, we find information about the users' activity, sleep, steps and calorie habits in a daily and hourly manner.
+As commented above, I'm going to use spreadsheets for the cleaning and sorting phase. At first sight, as expected, we find information about the users' activity, sleep, steps and calorie habits in a daily and hourly manner.
 
 Pre-processing techniques executed on each file include:
 
@@ -48,3 +48,15 @@ Pre-processing techniques executed on each file include:
 - Format consistency between dates and times
 - ID length validation (=10 char)
 - Splitted text to columns to separate dates and hours for a more in-depth analysis
+
+
+#### Analyze
+
+First, I wanted to check if the amount of participants was effectively 30:
+```
+SELECT
+	COUNT(DISTINCT(Id)) AS total_participants
+FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity
+`````
+The query returned 33 participants:
+```
