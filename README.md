@@ -14,8 +14,9 @@ All of them come together in Bellabeat's *app*, that provides users with health 
 
 ### Business Task Summary:
 
-Sršen is conscious of the power of data-driven business decisions to help Bellabeat grow, so she's asked the marketing analysts team to analyse smart device data to gain insight into how consumers are using their smart devices. The findings will be shared to Bellabeat's key stakeholders (i.e. Sršen, Mur and Marketing team) in order to provide recommendations on how to apply marketing strategies to their own products based on the results derived.
+Sršen is conscious of the power of data-driven business decisions to help Bellabeat grow, so she's asked the marketing analysts team to focus on one of their products and analyse smart device data to gain insight into how consumers are using their smart devices. The findings will be shared to Bellabeat's key stakeholders (i.e. Sršen, Mur and Marketing team) in order to provide recommendations on how to apply marketing strategies to their own products based on the results derived.
 The task will be achieved following Google's Data Analytics Professional Certificate journey of **Ask**, **Prepare**, **Process**, **Analyse**, **Share** and **Act** phases.
+The device chosen to focus on and apply the results to is the Leaf tracker. I made my choice based on the combination of style and usability combined in this particular piece.
 
 ### Data:
 
@@ -23,11 +24,11 @@ The task will be achieved following Google's Data Analytics Professional Certifi
 - It is a CC0 Public Domain licensed post, so no permissions are needed to work with it.
 - Data is mostly in long format, and was originally posted in Zenodo's [webpage](https://zenodo.org/) by Furberg, Robert; Brinton, Julia; Keating, Michael; Ortiz, Alexa. The link to the original dataset is [this](https://zenodo.org/record/53894#.YMoUpnVKiP9).
 - The data's been checked using the ROCCC protocol:
-  - Reliable: even though our sample size meets the CLT ≥ 30 criteria (or does it?), a greater sample size is strongly recommended.
-  - Original: the original datasource is located and the information comes from active users that agreed to share it.
-  - Comprehensive: data is in raw format so no human error is found, although some points are missing because of each candidate's particular use of the device. 
-  - Current: data is not current, since it was collected on 2016, so it shouldn't be used as a reference in the present period.
-  - Cited: as stated before, the origin of the dataset is present and can be tracked for confidence.
+  - _Reliable_: even though our sample size meets the CLT ≥ 30 criteria (or does it?), a greater sample size is strongly recommended.
+  - _Original_: the original datasource is located and the information comes from active users that agreed to share it.
+  - _Comprehensive_: data is in raw format so no human error is found, although some points are missing because of each candidate's particular use of the device. However, no information is found about age, geographics, profession, etc., which will bring obvious limitations to the analysis later.
+  - _Current_: data is not current, since it was collected on 2016, so it shouldn't be used as a reference in the present period.
+  - _Cited_: as stated before, the origin of the dataset is present and can be tracked for confidence.
 
 For this study, I'll be using 3 different tools for the complete analysis and sharing process:
 
@@ -39,7 +40,7 @@ For this study, I'll be using 3 different tools for the complete analysis and sh
 
 #### Process
 
-As commented above, I'm going to use spreadsheets for the cleaning and sorting phase. At first sight, as expected, we find information about the users' activity, sleep, steps and calorie habits in a daily and hourly manner.
+As commented above, I used spreadsheets for the cleaning and sorting phase. At first sight, as expected, we find information about the users' activity, sleep, steps and calorie habits in a daily and hourly manner.
 
 Pre-processing techniques executed on each file include:
 
@@ -75,12 +76,12 @@ WITH Id_counts AS (
 SELECT
   MIN(appearance_count) AS min_appearances,
   MAX(appearance_count) AS max_appearances,
-	ROUND(AVG(appearance_count), 0) AS avg_appearances
+  ROUND(AVG(appearance_count), 0) AS avg_appearances
 FROM Id_counts;
 ```
-![image](https://github.com/user-attachments/assets/48f73b1e-4f55-4cce-b396-39cc01571ae5)
+![image](https://github.com/user-attachments/assets/2db7ef29-43a8-4c00-8430-8208eb286bf0)
 
-That is a very wide range, and overall the average of days is less than the one expected of at least 30. This allows us to assume that there is a segmentation on how active users are with their devices. In any case, I found that in 24 cases (73%) there are logs from more than 30 days:
+That is a very wide range, and overall the average of days is less than the one expected of at least 30. This allows us to assume that there is a segmentation on how active users are with their devices. In any case, I found that in 24 cases (73%) there are logs for the entire period:
 ```
 WITH Id_counts AS (
   SELECT
@@ -97,3 +98,41 @@ WHERE
 	Id_counts.appearance_count >= 30
 ```
 ![image](https://github.com/user-attachments/assets/10e54ffc-f734-47b4-9969-f58eea426fda)
+
+I was also immediately interested in revising the total steps taken by each user, since this function seems to be very popular among fitness trackers:
+```
+SELECT
+  ROUND(AVG(StepTotal)) AS avg_steps,
+	MIN(StepTotal) AS min_steps,
+	MAX(StepTotal) AS max_steps,
+FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailySteps`
+```
+![image](https://github.com/user-attachments/assets/8100bff7-0edf-49a2-8e2d-b55b729b91c9)
+
+We once again find a very high range between the least and most active users, which reinforces the segmentation we referenced earlier. However, having a minimum of 0 steps as a the lowest value raises some doubts, since it looks almost imposible not to take a single step in a whole day period, or it may simply be due to the user not wearing it or having it out of battery, which would mean a NULL value.
+
+Doing some reaserch, I found [this](https://www.thelancet.com/journals/lanpub/article/PIIS2468-2667(21)00302-9/fulltext#fig3) article from "The Lancet" that investigated "the effect of daily step count on all-cause mortality in adults". They found that, in women, from 8.000 to 12.000 steps in adults aged ≥ 40 and 7.500 steps in those aged ≥ 62, the risk of diseases or death significantly lowered. Our dataset does not include information about age, which is a critical limitation at this step, but is something worth noting later on in our recommendations to Bellabeat's team, that can use this numbers as a benchmark to warn their users that are, as we've seen, below it on average.
+
+I next wanted to submerge into the Intensities table to check out how active our users are, and this is what I found:
+```
+SELECT
+  ROUND(AVG(SedentaryMinutes)) AS avg_sedentary_minutes,
+  ROUND(AVG(LightlyActiveMinutes)) AS avg_lightly_active_minutes,
+  ROUND(AVG(FairlyActiveMinutes)) AS avg_fairly_active_minutes,
+  ROUND(AVG(VeryActiveMinutes)) AS avg_very_active_minutes
+FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyIntensities`
+```
+![image](https://github.com/user-attachments/assets/ae952fbd-2b84-46db-89cd-d85e88dbecdf)
+
+And as a % of the whole:
+```
+SELECT
+  ROUND(SUM(SedentaryMinutes) / (SUM(SedentaryMinutes) + SUM(LightlyActiveMinutes) + SUM(FairlyActiveMinutes) + SUM(VeryActiveMinutes)), 2) * 100 AS sedentary_percentage,
+  ROUND(SUM(LightlyActiveMinutes) / (SUM(SedentaryMinutes) + SUM(LightlyActiveMinutes) + SUM(FairlyActiveMinutes) + SUM(VeryActiveMinutes)), 2) * 100 AS lightly_active_percentage,
+  ROUND(SUM(FairlyActiveMinutes) / (SUM(SedentaryMinutes) + SUM(LightlyActiveMinutes) + SUM(FairlyActiveMinutes) + SUM(VeryActiveMinutes)), 2) * 100 AS fairly_active_percentage,
+  ROUND(SUM(VeryActiveMinutes) / (SUM(SedentaryMinutes) + SUM(LightlyActiveMinutes) + SUM(FairlyActiveMinutes) + SUM(VeryActiveMinutes)), 2) * 100 AS very_active_percentage
+FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyIntensities`
+```
+![image](https://github.com/user-attachments/assets/fc468029-9a21-4fdc-b2f6-7897527677b6)
+
+Which shows us that MORE THAN 80% of the time our users are in sedentary intensity state. I think there is a clear chance to add value to the Bellabeat's app members to help them get moving by adding some training content directly to the app or by redirecting to some channel.
