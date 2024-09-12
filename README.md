@@ -56,8 +56,9 @@ Pre-processing techniques executed on each file include:
 First, I wanted to check if the amount of participants was effectively 30:
 ```
 SELECT
-	COUNT(DISTINCT(Id)) AS total_participants
-FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity
+  COUNT(DISTINCT(Id)) AS total_participants
+FROM
+  `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity
 `````
 The query returned 33 participants:
 
@@ -89,13 +90,13 @@ WITH Id_counts AS (
     COUNT(*) AS appearance_count
   FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity`
   GROUP BY
-	Id
+    Id
 )
 SELECT
   COUNT(Id) AS most_active_users
 FROM Id_counts
 WHERE
-	Id_counts.appearance_count >= 30
+  Id_counts.appearance_count >= 30
 ```
 ![image](https://github.com/user-attachments/assets/10e54ffc-f734-47b4-9969-f58eea426fda)
 
@@ -103,8 +104,8 @@ I was also immediately interested in revising the total steps taken by each user
 ```
 SELECT
   ROUND(AVG(StepTotal)) AS avg_steps,
-	MIN(StepTotal) AS min_steps,
-	MAX(StepTotal) AS max_steps,
+  MIN(StepTotal) AS min_steps,
+  MAX(StepTotal) AS max_steps,
 FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailySteps`
 ```
 ![image](https://github.com/user-attachments/assets/8100bff7-0edf-49a2-8e2d-b55b729b91c9)
@@ -136,3 +137,49 @@ FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyIntensities`
 ![image](https://github.com/user-attachments/assets/fc468029-9a21-4fdc-b2f6-7897527677b6)
 
 Which shows us that MORE THAN 80% of the time our users are in sedentary intensity state. I think there is a clear chance to add value to the Bellabeat's app members to help them get moving by adding some training content directly to the app or by redirecting to some channel.
+
+My next step was to find out at what time of the day were the most steps taken by the participants. Here's the top 5 most active hours of the day:
+```
+SELECT
+  ActivityHour,
+  SUM(StepTotal) AS sum_step_total,
+  ROUND(AVG(StepTotal)) AS avg_steps_hour,
+  MIN(StepTotal) AS min_step_total,
+  MAX(StepTotal) AS max_step_total
+FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.hourlySteps`
+GROUP BY
+  ActivityHour
+ORDER BY
+  sum_step_total DESC
+LIMIT 5
+```
+![image](https://github.com/user-attachments/assets/8ceac911-0321-4681-961c-143ef3232460)
+
+And per day of the week as well, why not. But first, a "WeekDay" column needed to be created, since it was not originally included in the dataset. I achieved this through spreadsheets with the ```=TEXT()``` function.
+```
+SELECT
+  WeekDay,
+  ROUND(AVG(TotalSteps)) AS avg_steps
+FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity_weekday`
+GROUP BY
+  WeekDay
+ORDER BY
+  avg_steps DESC;
+```
+![image](https://github.com/user-attachments/assets/785c4a0f-cffb-4c46-8aae-7fcb5bc72220)
+
+It appears that Saturdays are the the most active days of the week on average.
+
+Finally, I wanted to take a look at sleeping time, since it is a very important factor to consider when looking for a healthy lifestyle. [This](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC6267703/) paper published by the official site of the National Center for Biotechnology Information, suggests getting 7-9 hours of sleep each day. Let's take a look at how are our participants comparing:
+```
+SELECT
+  ROUND(AVG(TotalMinutesAsleep/60)) AS avg_sleep_hours,
+  ROUND(MIN(TotalMinutesAsleep/60)) AS min_sleep_hours,
+  ROUND(MAX(TotalMinutesAsleep/60)) AS max_sleep_hours
+FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailySleep`
+```
+![image](https://github.com/user-attachments/assets/815cf9c3-d430-4126-bba4-303a7a1df943)
+
+Right on the lower boundarie, but inside the recommendations.
+
+I also pretended to check the weight log info uploaded in the dataset, but after querying it found out only 8 participants out of the 33 had logged anything, so I discarded it for not being representative of the sample.
