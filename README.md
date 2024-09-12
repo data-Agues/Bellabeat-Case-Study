@@ -183,3 +183,12 @@ FROM `pristine-gadget-423406-i3.Fitbit_tracker_data.dailySleep`
 Right on the lower boundarie, but inside the recommendations.
 
 I also pretended to check the weight log info uploaded in the dataset, but after querying it found out only 8 participants out of the 33 had logged anything, so I discarded it for not being representative of the sample.
+
+#### Share & Act
+
+So in this last phase the idea is to share the insights and the findings of our work through visualizations, together with recommendations on how to act properly to take maximum advantage of the story the data is telling us.
+
+As previously stated, the main goal is to assist Bellabeat's key stakeholders by planning a marketing strategy based on the results found focusing on one of their products, that in this case will be the Leaf Chakra, a wellness tracker designed as a piece of jewelry, made from hypoallergenic stainless steel and natural crystals. It tracks activity, menstrual cycles, sleep habits, and stress resistance. It can be worn as a bracelet, necklace, or clip.
+
+![leaf](https://bellabeat.com/wp-content/uploads/2022/04/Untitled-2-3.jpg)
+
