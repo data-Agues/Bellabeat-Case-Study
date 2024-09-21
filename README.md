@@ -38,7 +38,7 @@ For this study, I'll be using 3 different tools for the complete analysis and sh
 
 ### Let's begin the exploration...
 
-#### Process
+#### Process (Spreadsheets)
 
 As commented above, I used spreadsheets for the cleaning and sorting phase. At first sight, as expected, we find information about the users' activity, sleep, steps and calorie habits in a daily and hourly manner.
 
@@ -51,7 +51,7 @@ Pre-processing techniques executed on each file include:
 - Splitted text to columns to separate dates and hours for a more in-depth analysis
 
 
-#### Analyze
+#### Analyze (SQL)
 
 First, I wanted to check if the amount of participants was effectively 30:
 ```
@@ -184,7 +184,7 @@ Right on the lower boundarie, but inside the recommendations.
 
 I also pretended to check the weight log info uploaded in the dataset, but after querying it found out only 8 participants out of the 33 had logged anything, so I discarded it for not being representative of the sample.
 
-#### Share & Act
+#### Share & Act (Tableau)
 
 So in this last phase the idea is to share the insights and the findings of our work through visualizations, together with recommendations on how to act properly to take maximum advantage of the story the data is telling us.
 
