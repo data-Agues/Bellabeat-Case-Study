@@ -192,3 +192,22 @@ As previously stated, the main goal is to assist Bellabeat's key stakeholders by
 
 ![leaf](https://bellabeat.com/wp-content/uploads/2022/04/Untitled-2-3.jpg)
 
+One of the main ideas behind the analysis was to answer the question "How are consumers using their fitness trackers?". That's why, first of all, I pretended to showcase this in a simple text table to get a snapshot of the situation.
+
+![bar_log_cnt](https://github.com/user-attachments/assets/eae2c782-1f3e-4b53-a86f-8cd9b09aeb84)
+
+At a glance, we find out the logs for Calories, Steps and Intensities are found on every user's tracker data. Sleep falls behind with only 24 users logging information and finally Weight logs that are only found in 8 of the 33 cases being followed.
+That being said, it is clear that the most logs come from the categories that do not need the user to be manually logging, but only having to wear it and with battery. So, in this case, Bellabeat could be implementing:
+
+* Weekly/monthly (user's choice) *log reminders* for Weight in order to calculate BMI and give recommendations for a healthy diet.
+* Point-based *rewards* and levels for every log. These could be exchanged for a *free month* in case they don't have a premium subscription or *discounts* in any of their products.
+
+Now, it's time to see how committed they are on the daily use of their device. This accounts for the act of wearing it as well as having it charged so it can accomplish its purpose:
+
+![bar_user_act (3)](https://github.com/user-attachments/assets/82f2d070-ecb9-4d88-9e1f-9d236f42e3be)
+
+We can identify right away 3 categories of users: Committed, Moderately Active and Lightly Active, based on the count of days with at least one activity logged. Actions for achieving this could be:
+
+* Again, one way to attract their attention can be through friendly reminders such as "Don't forget to keep track of your healthy habits!" and then suggest a category to log. *Water intake*, sharing *feelings on day of the cycle* or simply a *recommendation of how the Leaf tracker can be used and combined* are all good fits.
+* Rewarding points for doing so and getting discounts on the Spring bottle, for instance, to *automate the logging process*, and get *better results* thanks to more data being available.
+
