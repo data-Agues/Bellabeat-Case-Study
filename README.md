@@ -199,8 +199,8 @@ One of the main ideas behind the analysis was to answer the question "How are co
 At a glance, we find out the logs for Calories, Steps and Intensities are found on every user's tracker data. Sleep falls behind with only 24 users logging information and finally Weight logs that are only found in 8 of the 33 cases being followed.
 That being said, it is clear that the most logs come from the categories that do not need the user to be manually logging, but only having to wear it and with battery. So, in this case, Bellabeat could be implementing:
 
-* Weekly/monthly (user's choice) *log reminders* for Weight in order to calculate BMI and give recommendations for a healthy diet.
-* Point-based *rewards* and levels for every log. These could be exchanged for a *free month* in case they don't have a premium subscription or *discounts* in any of their products.
+* Weekly/monthly (user's choice) *log reminders* for Weight in order to calculate BMI and give recommendations for a healthy diet, or even in case of the user having a goal weight in mind, letting her know progress towards it.
+* Point-based *rewards* and levels for every log. These could be exchanged for a *free month* in case they don't have a premium subscription or *discounts* in any of their products. These recommendation can be implemented with every interaction a user does with Bellabeat's product and/or services.
 
 Now, it's time to see how committed they are on the daily use of their device. This accounts for the act of wearing it as well as having it charged so it can accomplish its purpose:
 
@@ -210,4 +210,45 @@ We can identify right away 3 categories of users: Committed, Moderately Active a
 
 * Again, one way to attract their attention can be through friendly reminders such as "Don't forget to keep track of your healthy habits!" and then suggest a category to log. *Water intake*, sharing *feelings on day of the cycle* or simply a *recommendation of how the Leaf tracker can be used and combined* are all good fits.
 * Rewarding points for doing so and getting discounts on the Spring bottle, for instance, to *automate the logging process*, and get *better results* thanks to more data being available.
+
+A very interesting or, why not, concerning finding was the fact that **MORE THAN 80%** of the time is spent in a sedentary state. This is the only graph made in spreadsheets, for simplicity reasons.
+
+![Intensity % over whole period](https://github.com/user-attachments/assets/7885d00b-c4e7-45dc-a29e-8db1e25fb244)
+
+What is more, 'sedentary' and 'lightly active' minutes make up for just above 97% of the whole dataset's activity minutes logged. The remaining 3% is split between active (1%) and 'fairly active' (2%) minutes.
+
+This information striked me at first, but after some research I found that it is not as bad as it may look. [This](https://www.ncbi.nlm.nih.gov/books/NBK566046/#_ch4_s2_) paper from the government's National Institute of Health states that adults aged 18-65 should spend at least 150-300 minutes a week doing "moderate-intensity" aerobic activities, users from the dataset spent 87; recommendation for weekly "vigorous-intensity" activity is 75-150, users spent 136. So they are falling short on one side and achieving the other. However, it's important to bear in mind that the paper does not distinguish between men and women and we don't know the age of the dataset participants either, which is a serious limitation.
+
+Recommended actions for Bellabeat's team include:
+
+* Including an active rest alarm after a certain period of sedentary time.
+* Notifications throughout the day showing amount of steps taken that day and the ones left to achieve the daily goal.
+* Associating with a fitness channel to include a tab in the app with workout videos and training plans, while trying the Leaf in it's different formats to see which one feels more confortable for them.
+* Location-based fitness centers nearby search engine.
+
+Next up in this stage, I wanted to get into the most active day of the week and hour of the day, evaluated by the amount of steps taken:
+
+![column_day (1)](https://github.com/user-attachments/assets/74765d34-485f-4328-b6a7-f6c2ac0df0f0)
+![column_top_hour](https://github.com/user-attachments/assets/33c4a292-386f-4bde-91a2-4bad7f91c0e1)
+
+As shown, Saturdays came up as the most active days in the week, which with no further information about the users nothing much can be said in particular, except for assuming maybe they have a typical 9 to 5 office schedule during weekdays and use Saturdays for walks and outdoor activities, and leaving Sundays for stay-at-home family time. But there is no evidence to support this.
+
+Among the top five busiest hours, three are after 5pm, and the other two at midday, which could be in accordance with our previous theory. For instance, getting out of the office and doing stuff before returning home, or getting lunch. But then again, they're only assumptions that should not be taken into account given the limitations of the dataset. 
+
+Some actions Bellabeat could take from this insights are:
+
+* Suggesting something like an "#ActivityOfTheDay" for less active days
+* Stretching excercises as an active rest on certain days.
+
+Lastly, I've found two positive correlations: calories burnt against active minutes, meaning the more active users were, the more calories they burnt; and then sleep against active minutes, meaning minutes asleep increased proportionate with active minutes. Here are the graphs:
+
+![scatter_ActiveVsCalories](https://github.com/user-attachments/assets/561edba5-011b-4785-850b-f959f23ff4e3)
+![scatter_act_vs_sleep](https://github.com/user-attachments/assets/e2dc998b-83f3-4c58-9ee2-2faabb6f42f6)
+
+Concerning this, Bellabeat could simply:
+
+* Generate counsciousness about the importance of staying active and wearing your Leaf with you to help you keep track of your healthy habits, while keeping stylish.
+* Push notifications with Bellabeat's blog posts that summarize the articles from "The Lancet" and the NIH mentioned in this analysis to stay in track with scientific-based recommendations.
+
+### Conclusions
 
