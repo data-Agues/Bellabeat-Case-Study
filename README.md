@@ -58,7 +58,7 @@ First, I wanted to check if the amount of participants was effectively 30:
 SELECT
   COUNT(DISTINCT(Id)) AS total_participants
 FROM
-  `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity
+  `pristine-gadget-423406-i3.Fitbit_tracker_data.dailyActivity`
 `````
 The query returned 33 participants:
 
