@@ -252,3 +252,6 @@ Concerning this, Bellabeat could simply:
 
 ### Conclusions
 
+Fitness tracking devices are constantly evolving, upgrading its usabilities and ease of use for a better overall customer experience. Bellabeat has achieved a very ambitious goal by making their products not only commit to their purpose of tracking different activities and even menstrual cycles, but also turning them into fashionable accessory pieces. This gives the brand a clear advantage in the women's wearable market and helps them stand out.
+
+Following along with the data-driven recommendations given in this study may open new opportunities to add even more value into customer's lives, making them aware of the importance of healthy habits but taking the burden off from it by automating the loading and recording phase. And this represents the main purpose of businesses nowadays, helping clients seamlessly attain to their objectives with simple but powerful technological devices.
