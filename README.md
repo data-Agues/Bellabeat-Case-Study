@@ -1,4 +1,4 @@
-# Bellabeat-Case-Study
+# Bellabeat Case Study
 ## How can a tech-wellness company play it smart?
 
 ![bellabeat_logo](https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTdw-ISja4k09NZu5Mn19WPYIis_oMk0G2suQ&s)
